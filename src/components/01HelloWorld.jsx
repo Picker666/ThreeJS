@@ -19,11 +19,20 @@ const HelloWorld = () => {
   const cubeRef = useRef(null);
   const controlsRef = useRef();
   const axesHelperRef = useRef(new THREE.AxesHelper(5));
+  const clockRef = useRef(new THREE.Clock());
 
-  const move = () => {
-    cubeRef.current.position.x += 0.01;
-    cubeRef.current.position.y += 0.01;
-    cubeRef.current.position.z += 0.01;
+  const move = (time) => {
+    // const moveLength = ((time / 1000) * 1) % 5;
+    // cubeRef.current.position.x = moveLength;
+
+    // const totalTime = clockRef.current.getElapsedTime();
+    const deltaTime = clockRef.current.getDelta();
+    const moveLength = deltaTime * 1;
+    console.log('deltaTime: ', deltaTime);
+
+    cubeRef.current.position.x += moveLength;
+    // cubeRef.current.position.y += 0.01;
+    // cubeRef.current.position.z += 0.01;
     if (cubeRef.current.position.x >= 5) {
       cubeRef.current.position.set(0, 0, 0);
     }
@@ -35,11 +44,11 @@ const HelloWorld = () => {
     // cubeRef.current.rotation.z += 0.01;
   };
 
-  const animate = () => {
-    requestAnimationFrame(animate);
+  const animate = (time) => {
     rendererRef.current.render(scenrRef.current, cameraRef.current);
-    move();
-    rotation();
+    move(time);
+    // rotation();
+    requestAnimationFrame(animate);
   };
 
   const cube = () => {
