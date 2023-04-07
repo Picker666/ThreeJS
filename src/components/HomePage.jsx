@@ -8,6 +8,7 @@ const HomePage = () => {
       <h1>Vite + React</h1>
       <h2>
         <Link to={'/hello'}>Hello</Link>
+        <Link to={'/animation'}>Animation</Link>
       </h2>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
